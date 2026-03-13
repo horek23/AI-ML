@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import StandardScaler
 
 df = pd.read_csv("train.csv")
 
@@ -55,9 +55,11 @@ print(missing)
 print("НОРМАЛИЗАЦИЯ ДАННЫХ\n")
 
 #выбрали Z-оценку, тк она более устойчива к выбросам
-#только 0 и 1: BsmtHalfBath, HalfBath, только 1: KitchenAbvGr, ID - их не нужно нормализовать, поэтому исключим
+#только 0 и 1: BsmtHalfBath, HalfBath, только 1: KitchenAbvGr, ID,
+#SalePrice(так как это столбец, который будем предсказывать и  чтобы по нему было удобно смотреть)
+#их не нужно нормализовать, поэтому исключим
 numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
-numeric_cols = numeric_cols.drop(['Id','BsmtHalfBath','HalfBath','KitchenAbvGr'])
+numeric_cols = numeric_cols.drop(['Id','BsmtHalfBath','HalfBath','KitchenAbvGr','SalePrice'])
 scaler = StandardScaler()
 df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
 
@@ -101,7 +103,7 @@ df['PavedDrive'] = df['PavedDrive'].map(quality_map_7)
 
 nominal_cols = ['MSZoning','Street','Alley','LandContour','Utilities','LotConfig','Neighborhood','Condition1',
     'Condition2','BldgType','HouseStyle','RoofStyle','RoofMatl','Exterior1st','Exterior2nd','MasVnrType',
-    'Foundation','Heating','CentralAir','Electrical','GarageType','MiscFeature','SaleType','SaleCondition']
+    'Foundation','Heating','CentralAir','Electrical','GarageType','MiscFeature','SaleType','SaleCondition','Fence']
 
 df = pd.get_dummies(df, columns = nominal_cols, drop_first=True)
 
