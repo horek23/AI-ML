@@ -7,6 +7,9 @@ from sklearn.linear_model import ElasticNet
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 df = pd.read_csv("../laba1/clean_dataset.csv")
 
@@ -78,3 +81,10 @@ y_pred_test = logreg_model.predict(X_test)
 # Оценка классификации
 report = classification_report(y_test, y_pred_test)
 print(report)
+cm = confusion_matrix(y_test, y_pred_test)
+plt.figure(figsize=(4, 3))
+sns.heatmap(cm, annot=True, fmt='d', cmap='bwr')
+plt.title('Confusion matrix')
+plt.ylabel('True label')
+plt.xlabel('Predicted label')
+plt.show()

@@ -9,8 +9,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.tree import DecisionTreeRegressor
 
 df = pd.read_csv("../laba1/clean_dataset.csv")
-
-# Разделение датасета на обучающую и тестовую выборки
 X = df.drop(['SalePrice'], axis=1)
 y = df['SalePrice']
 
