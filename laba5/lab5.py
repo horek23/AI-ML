@@ -36,3 +36,5 @@ plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.legend()
 plt.show()
+
+// не работает потому что почему то не скачивается библиотека
